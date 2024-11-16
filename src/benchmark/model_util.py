@@ -49,7 +49,7 @@ def extract_opera_feature(sound_dir_loc, pretrain="operaCE", input_sec=8, from_s
     MAE = ("mae" in pretrain or "GT" in pretrain)
 
     encoder_path = get_encoder_path(pretrain)
-    ckpt = torch.load(encoder_path)
+    ckpt = torch.load(encoder_path, map_location=torch.device('cpu'))
     model = initialize_pretrained_model(pretrain)
     model.eval()
     model.load_state_dict(ckpt["state_dict"], strict=False)
